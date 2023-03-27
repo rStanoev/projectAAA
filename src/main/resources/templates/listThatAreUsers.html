@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css">
+    <link rel="stylesheet" href="/css/listUsers/style.css">
+    <title>Document</title>
+</head>
+<body>
+<header>
+
+</header>
+<main>
+    <table>
+        <thead>
+        <tr>
+            <td>Username</td>
+            <td>Email</td>
+            <td>View profile</td>
+            <td>Change profile</td>
+        </tr>
+        </thead>
+        <tbody th:each="u : ${usersSet}" th:object="${u}">
+        <tr>
+            <td th:text="*{username}">David</td>
+            <td th:text="*{email}">Male</td>
+            <td><a th:href="@{/users/profile2/{name}(name=*{username})}"><i class="fa-solid fa-eye"></i></a></td>
+            <td><a th:href="@{/users/change/{name}(name=*{username})}"><i class="fa-solid fa-pen"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer>
+
+</footer>
+</body>
+</html>

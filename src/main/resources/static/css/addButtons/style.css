@@ -1,0 +1,6 @@
+.container {
+    display: grid;
+    justify-content: center;
+    gap: 5%;
+    margin-top: 10%;
+}

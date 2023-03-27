@@ -1,0 +1,61 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Pathfinder</title>
+    <link rel="stylesheet" href="/css/profile/style.css">
+    <link rel="stylesheet" href="/css/registerFolder/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/profile/mobile.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+          integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+            integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+            crossorigin=""></script>
+</head>
+<body>
+<main class="p-5 align-content-center bg-blur my-register-div">
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-7">
+                <div class="profile-card p-3 py-4">
+                    <div class="text-center"><img src="/images/profile.jpg" width="100" class="rounded-circle"></div>
+                    <div class="text-center mt-3" th:object="${user}">
+                        <span class="bg-secondary p-1 px-4 rounded text-white" th:text="*{genderEnum.type}">Male</span>
+                        <h5 class="mt-2 mb-0">Username</h5>
+                        <span th:text="*{username}">UI/UX Designer</span>
+                        <h5 class="mt-2 mb-0">FullName</h5>
+                        <span th:text="*{fullName}">UI/UX Designer</span>
+                        <h5 class="mt-4 mb-0">Email</h5>
+                        <span th:text="*{email}">UI/UX Designer</span>
+                        <h5 class="mt-2 mb-0">Born</h5>
+                        <span th:text="*{born}">2001-11-26</span>
+                        <div class="buttons">
+                            <button class="btn btn-outline-primary px-4"><a th:href="@{/products/show/bought/{id}(id=*{id})}" class="bb">Bought Products</a></button>
+                            <!--                            <button class="btn btn-primary px-4 ms-3">Contact</button>-->
+                        </div>
+                        <div class="buttons">
+                            <button class="btn btn-outline-primary px-4"><a href="/" class="bb">Back</a></button>
+                            <!--                            <button class="btn btn-primary px-4 ms-3">Contact</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+<footer th:fragment="footer" class="footer bg-blur rounded">
+    <div class="container-fluid text-center">
+        <div class="h5 text-white">
+            &copy; Lucho, Chocho & Spring Advanced Students 2021. All rights reserved.
+        </div>
+    </div>
+</footer>
+</html>

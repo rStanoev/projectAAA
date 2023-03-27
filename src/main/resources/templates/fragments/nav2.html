@@ -1,0 +1,100 @@
+<nav>
+  <div class="gen">
+    <div class="links">
+      <div class="dropdown">
+        <a href="#">Peripheral</a>
+        <div class="dropdown-content">
+          <a href="/peripheral/listedPE">All</a>
+          <a href="/peripheral/listedKEYBOARD">Keyboard</a>
+          <a href="/peripheral/listedMOUSE">Mouse</a>
+          <a href="/peripheral/listedHEADSET">Headset</a>
+          <a href="/peripheral/listedMONITOR">Monitor</a>
+          <a href="/peripheral/listedSPEAKER">Speaker</a>
+          <a href="/peripheral/listedCONTROLLER">Controller</a>
+          <a href="/peripheral/listedETC">ETC</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <a href="#">Hardware</a>
+        <div class="dropdown-content">
+          <a href="/hardware/listedHC">All</a>
+          <a href="/hardware/listedCPU">Cpu</a>
+          <a href="/hardware/listedGPU">Gpu</a>
+          <a href="/hardware/listedMOTHERBOARD">Motherboard</a>
+          <a href="/hardware/listedHDD">HDD</a>
+          <a href="/hardware/listedSSD">SSD</a>
+          <a href="/hardware/listedPOWERSUPPLY">PowerSupply</a>
+          <a href="/hardware/listedCASE">Case</a>
+          <a href="/hardware/listedETC">ETC</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <a href="#">Pc</a>
+        <div class="dropdown-content">
+          <a href="/pc/listedPC">All</a>
+          <a href="/pc/listedPCs">Pc</a>
+          <a href="/pc/listedLAPTOP">Laptop</a>
+          <a href="/pc/listedCONSOLE">Console</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <a href="#">Table and Chair</a>
+        <div class="dropdown-content">
+          <a href="/tANDc/listedTC">All</a>
+          <a href="/tANDc/listedTABLE">Table</a>
+          <a href="/tANDc/listedCHAIR">Chair</a>
+        </div>
+      </div>
+    </div>
+    <div class="combine">
+      <div class="other">
+        <a href="/products/add">Add Product</a>
+        <a href="/users/register">register</a>
+        <a href="/products/view"><i class="fa-solid fa-cart-shopping"></i></a>
+      </div>
+      <div class="dropdown">
+        <a
+                class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                href="#"
+                id="navbarDropdownMenuAvatar"
+                role="button"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+        >
+          <img
+                  src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                  class="rounded-circle"
+                  height="25"
+                  alt="Black and White Portrait of a Man"
+                  loading="lazy"
+          />
+        </a>
+        <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuAvatar"
+        >
+          <li>
+            <a class="dropdown-item" href="/users/profile">My profile</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Settings</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="/users/all">Users</a>
+          </li>
+          <li>
+            <th:block sec:authorize="isAuthenticated()">
+            <form action="/users/logout" method="post">
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+              <button type="submit">Logout</button>
+            </form>
+            </th:block>
+            <th:block sec:authorize="!isAuthenticated()">
+              <a class="dropdown-item" href="/login">login</a>
+            </th:block>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
