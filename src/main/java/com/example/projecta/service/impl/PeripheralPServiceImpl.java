@@ -99,13 +99,16 @@ public class PeripheralPServiceImpl implements PeripheralPService {
         this.peripheralPRepository.delete(peripheralP);
     }
 
+    public void removeAllPeFromDataBase(Set<PeripheralP> peripheralPs) {
+        this.peripheralPRepository.deleteAll(peripheralPs);
+    }
+
     @Override
     public void buyAllPeripheral(Principal principal) {
         String username = principal.getName();
         User user = userRepository.findByEmail(username).orElseThrow(null);
 
         Set<PeripheralP> peripheralPS = user.getPeripherals();
-        Set<PeripheralP> peripheralPS3 = user.getPeripherals();
         Set<PeripheralBought> peripheralPSS = user.getPeripheralsBought();
 
         if (!peripheralPS.isEmpty()) {
@@ -118,12 +121,12 @@ public class PeripheralPServiceImpl implements PeripheralPService {
                 peripheralBought.setTime(LocalDateTime.now());
                 peripheralBoughtService.add(peripheralBought);
                 peripheralPSS.add(peripheralBought);
+
         }
 
         user.setPeripheralsBought(peripheralPSS);
         peripheralPS.clear();
         user.setPeripherals(peripheralPS);
-        this.peripheralPRepository.deleteAll(peripheralPS3);
         userRepository.saveAndFlush(user);
     }
 }
@@ -131,6 +134,11 @@ public class PeripheralPServiceImpl implements PeripheralPService {
     @Override
     public void map(PeripheralP peripheralP) {
         this.peripheralPRepository.saveAndFlush(peripheralP);
+    }
+
+    @Override
+    public Set<PeripheralP> fill(Set<PeripheralP> peripherals) {
+        return new LinkedHashSet<>(peripherals);
     }
 
 

@@ -30,4 +30,6 @@ public interface TandCPService {
 
 
     void map(TandCP tandCP);
+
+    Set<TandCP> fill(Set<TandCP> gettANDcs);
 }

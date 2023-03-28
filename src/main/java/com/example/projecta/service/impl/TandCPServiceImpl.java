@@ -102,9 +102,7 @@ public class TandCPServiceImpl implements TandCPService {
         String username = principal.getName();
         User user = userRepository.findByEmail(username).orElseThrow(null);
 
-
         Set<TandCP> tandCPS = user.gettANDcs();
-        Set<TandCP> tandCPS3 = user.gettANDcs();
         Set<TandCBought> tandCBoughts = user.gettANDcsBought();
 
         if (!tandCPS.isEmpty()) {
@@ -124,14 +122,18 @@ public class TandCPServiceImpl implements TandCPService {
         user.settANDcsBought(tandCBoughts);
        tandCPS.clear();
        user.settANDcs(tandCPS);
-            this.tandCPRepository.deleteAll(tandCPS3);
-        userRepository.saveAndFlush(user);
+       userRepository.saveAndFlush(user);
     }
 }
 
     @Override
     public void map(TandCP tandCP) {
         this.tandCPRepository.saveAndFlush(tandCP);
+    }
+
+    @Override
+    public Set<TandCP> fill(Set<TandCP> gettANDcs) {
+        return new LinkedHashSet<>(gettANDcs);
     }
 
 

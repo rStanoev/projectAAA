@@ -26,4 +26,6 @@ public interface HardwarePService {
 
 
     void map(HardwareP hardwareP);
+
+    Set<HardwareP> fill(Set<HardwareP> hardware);
 }

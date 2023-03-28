@@ -100,7 +100,6 @@ public class PcPServiceImpl implements PcPService {
         User user = userRepository.findByEmail(username).orElseThrow(null);
 
         Set<PcP> pcPS = user.getPcs();
-        Set<PcP> pcPS3 = user.getPcs();
         Set<PcBought> pcBoughts = user.getPcsBought();
 
         if (!pcPS.isEmpty()) {
@@ -118,7 +117,6 @@ public class PcPServiceImpl implements PcPService {
         user.setPcsBought(pcBoughts);
         pcPS.clear();
         user.setPcs(pcPS);
-        this.pcPRepository.deleteAll(pcPS3);
         userRepository.saveAndFlush(user);
     }
     }
@@ -126,6 +124,11 @@ public class PcPServiceImpl implements PcPService {
     @Override
     public void map(PcP pcP) {
         this.pcPRepository.saveAndFlush(pcP);
+    }
+
+    @Override
+    public Set<PcP> fill(Set<PcP> pcs) {
+        return new LinkedHashSet<>(pcs);
     }
 
 

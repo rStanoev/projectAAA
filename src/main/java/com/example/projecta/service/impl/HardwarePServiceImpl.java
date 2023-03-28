@@ -108,7 +108,6 @@ public class HardwarePServiceImpl implements HardwarePService {
         User user = userRepository.findByEmail(username).orElseThrow(null);
 
         Set<HardwareP> hardwarePS = user.getHardware();
-        Set<HardwareP> hardwarePS3 = user.getHardware();
         Set<HardwareBought> hardwarePS2 = user.getHardwareBought();
 
         if (!hardwarePS.isEmpty()) {
@@ -128,13 +127,17 @@ public class HardwarePServiceImpl implements HardwarePService {
         user.setHardwareBought(hardwarePS2);
         hardwarePS.clear();
         user.setHardware(hardwarePS);
-        this.hardwarePRepository.deleteAll(hardwarePS3);
         userRepository.saveAndFlush(user);
     }}
 
     @Override
     public void map(HardwareP hardwareP) {
         hardwarePRepository.saveAndFlush(hardwareP);
+    }
+
+    @Override
+    public Set<HardwareP> fill(Set<HardwareP> hardware) {
+        return new LinkedHashSet<>(hardware);
     }
 
 

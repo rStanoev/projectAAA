@@ -27,4 +27,6 @@ public interface PcPService {
 
 
     void map(PcP pcP);
+
+    Set<PcP> fill(Set<PcP> pcs);
 }

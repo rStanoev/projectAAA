@@ -23,8 +23,12 @@ public interface PeripheralPService {
 
     void removePeFromDataBase(PeripheralP peripheralP);
 
+    void removeAllPeFromDataBase(Set<PeripheralP> peripheralPs);
+
     void buyAllPeripheral(Principal principal);
 
 
     void map(PeripheralP peripheralP);
+
+    Set<PeripheralP> fill(Set<PeripheralP> peripherals);
 }

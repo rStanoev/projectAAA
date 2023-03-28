@@ -4,7 +4,7 @@ import com.example.projecta.domain.dto.binding.HardwareBindingModel;
 import com.example.projecta.domain.dto.binding.PcBindingModel;
 import com.example.projecta.domain.dto.binding.PeripheralBindingModel;
 import com.example.projecta.domain.dto.binding.TandCbindingModel;
-import com.example.projecta.domain.dto.entity.User;
+import com.example.projecta.domain.dto.entity.*;
 import com.example.projecta.domain.dto.model.ShoppingCartModel;
 import com.example.projecta.repository.UserRepository;
 import com.example.projecta.service.*;
@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/products")
@@ -185,13 +186,32 @@ public class ProductsController {
 
     @GetMapping("/buy/all")
     public String buyAllP(Principal principal) {
+        User user = userRepository.findByEmail(principal.getName()).orElseThrow(null);
+        Set<HardwareP> hardwarePS = hardwarePService.fill(user.getHardware());
+        Set<PeripheralP> peripheralPS = peripheralPService.fill(user.getPeripherals());
+        Set<PcP> pcPS = pcPService.fill(user.getPcs());
+        Set<TandCP> tandCPS = tandCPService.fill(user.gettANDcs());
+
         hardwarePService.buyAllHardware(principal);
         peripheralPService.buyAllPeripheral(principal);
         pcPService.buyAllPc(principal);
         tandCPService.buyAllTandC(principal);
 
-        User user = userRepository.findByEmail(principal.getName()).orElseThrow(null);
+        for (HardwareP hardwareP : hardwarePS) {
+            hardwarePService.removeHcFromDataBase(hardwareP);
+        }
 
+        for (PeripheralP peripheralP : peripheralPS) {
+            peripheralPService.removePeFromDataBase(peripheralP);
+        }
+
+        for (PcP pcP: pcPS) {
+            pcPService.removePcFromDataBase(pcP);
+        }
+
+        for (TandCP tandCP : tandCPS) {
+            tandCPService.removeTcFromDataBase(tandCP);
+        }
 
 
         return "shoppingCart";

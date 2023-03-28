@@ -184,7 +184,6 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setHardwareBought(hardwarePS2);
-          hardwarePS1.clear();
           user.setHardware(hardwarePS1);
         userRepository.saveAndFlush(user);
     }
@@ -211,7 +210,6 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPeripheralsBought(peripheralPSS);
-       peripheralPS.clear();
         user.setPeripherals(peripheralPS);
         userRepository.saveAndFlush(user);
     }
@@ -238,7 +236,6 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPcsBought(pcPSS);
-           pcPS.clear();
            user.setPcs(pcPS);
         userRepository.saveAndFlush(user);
     }
@@ -265,7 +262,6 @@ public class UserServiceImpl implements UserService {
         }
 
         user.settANDcsBought(tandCPSS);
-      tandCPS.clear();
        user.settANDcs(tandCPS);
         userRepository.saveAndFlush(user);
     }
