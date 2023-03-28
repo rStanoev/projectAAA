@@ -32,7 +32,7 @@ public class PcPServiceImpl implements PcPService {
 
     private final PcBoughtService pcBoughtService;
 
-    private Set<PcP> pcPSet = new HashSet<>();
+
 
 
     @Autowired
@@ -76,6 +76,7 @@ public class PcPServiceImpl implements PcPService {
 
         String username = principal.getName();
         User user = userRepository.findByEmail(username).orElseThrow(null);
+        Set<PcP> pcPSet = user.getPcs();
         pcPSet.add(pcP);
         user.setPcs(pcPSet);
 

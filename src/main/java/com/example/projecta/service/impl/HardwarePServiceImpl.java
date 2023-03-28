@@ -35,8 +35,6 @@ public class HardwarePServiceImpl implements HardwarePService {
     private final HardwareBoughtService hardwareBoughtService;
 
 
-    private Set<HardwareP> hardwarePSet = new HashSet<>();
-
     @Autowired
     public HardwarePServiceImpl(HardwarePRepository hardwarePRepository, HardwareService hardwareService, ModelMapper modelMapper, UserRepository userRepository, UserService userService, HardwareBoughtService hardwareBoughtService) {
         this.hardwarePRepository = hardwarePRepository;
@@ -85,6 +83,7 @@ public class HardwarePServiceImpl implements HardwarePService {
         HardwareP hardwareP = hardwarePRepository.findById(id).orElseThrow(null);
         String username = principal.getName();
         User user = userRepository.findByEmail(username).orElseThrow(null);
+        Set<HardwareP> hardwarePSet = user.getHardware();
         hardwarePSet.add(hardwareP);
         user.setHardware(hardwarePSet);
 

@@ -32,7 +32,6 @@ public class TandCPServiceImpl implements TandCPService {
 
     private final TandCBoughtService tandCBoughtService;
 
-    private Set<TandCP> tandCPSet = new HashSet<>();
 
     @Autowired
     public TandCPServiceImpl(TandCPRepository tandCPRepository, TandCService tandCService, ModelMapper modelMapper, UserRepository userRepository, TandCBoughtService tandCBoughtService) {
@@ -78,6 +77,7 @@ public class TandCPServiceImpl implements TandCPService {
 
         String username = principal.getName();
         User user = userRepository.findByEmail(username).orElseThrow(null);
+        Set<TandCP> tandCPSet = user.gettANDcs();
         tandCPSet.add(tandCP);
         user.settANDcs(tandCPSet);
 

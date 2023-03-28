@@ -32,8 +32,6 @@ public class PeripheralPServiceImpl implements PeripheralPService {
 
     private final PeripheralBoughtService peripheralBoughtService;
 
-    private Set<PeripheralP> peripheralPSet = new HashSet<>();
-
     @Autowired
     public PeripheralPServiceImpl(PeripheralPRepository peripheralPRepository, PeripheralService peripheralService, ModelMapper modelMapper, UserRepository userRepository, PeripheralBoughtService peripheralBoughtService) {
         this.peripheralPRepository = peripheralPRepository;
@@ -82,6 +80,7 @@ public class PeripheralPServiceImpl implements PeripheralPService {
 
         String username = principal.getName();
         User user = userRepository.findByEmail(username).orElseThrow(null);
+        Set<PeripheralP> peripheralPSet = user.getPeripherals();
         peripheralPSet.add(peripheralP);
         user.setPeripherals(peripheralPSet);
 
