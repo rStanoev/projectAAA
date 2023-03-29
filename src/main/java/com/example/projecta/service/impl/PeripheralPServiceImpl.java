@@ -140,6 +140,32 @@ public class PeripheralPServiceImpl implements PeripheralPService {
         return new LinkedHashSet<>(peripherals);
     }
 
+    @Override
+    public List<PeripheralP> findLast() {
+        return this.peripheralPRepository.findAll();
+    }
+
+    @Override
+    public List<PeripheralP> getLowestPrice() {
+        return this.peripheralPRepository.findByOrderByPriceAsc();
+    }
+
+    @Override
+    public List<PeripheralP> showPE() {
+        List<PeripheralP> peripheralPSet = this.peripheralPRepository.findAll();
+        List<PeripheralP> peripheralPSet1 = this.peripheralPRepository.findAllByOrderByPriceAsc();
+        PeripheralP peripheralP = peripheralPSet.get(peripheralPSet.size() - 1);
+        PeripheralP peripheralP1 = peripheralPSet1.get(peripheralPSet1.size() - 1);
+        PeripheralP peripheralP2 = peripheralPSet1.get(0);
+
+        List<PeripheralP> peripheralPList = new LinkedList<>();
+        peripheralPList.add(peripheralP);
+        peripheralPList.add(peripheralP1);
+        peripheralPList.add(peripheralP2);
+
+        return peripheralPList;
+    }
+
 
     private List<PeripheralP> getAllProduct() {
         return peripheralPRepository.findAll();

@@ -10,4 +10,8 @@ import java.util.List;
 @Repository
 public interface PeripheralPRepository extends JpaRepository<PeripheralP, Long> {
     List<PeripheralP> findAllByPeripheral_Type(PeripheralEnum type);
+
+    List<PeripheralP> findByOrderByPriceAsc();
+
+    List<PeripheralP> findAllByOrderByPriceAsc();
 }

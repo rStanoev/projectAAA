@@ -3,6 +3,7 @@ package com.example.projecta.web;
 import com.example.projecta.domain.dto.binding.CommentsBindingModel;
 import com.example.projecta.domain.dto.entity.CommentsHC;
 import com.example.projecta.domain.dto.entity.HardwareP;
+import com.example.projecta.domain.dto.entity.PcP;
 import com.example.projecta.domain.dto.entity.User;
 import com.example.projecta.domain.dto.model.HardwareModel;
 import com.example.projecta.domain.dto.model.ScListModel;
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -208,8 +211,4 @@ public class HardwareController {
 
         return "/Hardware/detailsHC";
     }
-
-
-
-
 }

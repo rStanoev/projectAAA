@@ -7,6 +7,7 @@ import com.example.projecta.domain.dto.model.HardwarePListModel;
 import com.example.projecta.domain.dto.model.ShoppingCartModel;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Set;
 
 public interface HardwarePService {
@@ -28,4 +29,10 @@ public interface HardwarePService {
     void map(HardwareP hardwareP);
 
     Set<HardwareP> fill(Set<HardwareP> hardware);
+
+    List<HardwareP> findLast();
+
+    List<HardwareP> getLowestPrice();
+
+    List<HardwareP> showHC();
 }

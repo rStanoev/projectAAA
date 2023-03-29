@@ -8,6 +8,7 @@ import com.example.projecta.domain.dto.model.PcPListModel;
 import com.example.projecta.domain.dto.model.ShoppingCartModel;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Set;
 
 public interface PcPService {
@@ -29,4 +30,10 @@ public interface PcPService {
     void map(PcP pcP);
 
     Set<PcP> fill(Set<PcP> pcs);
+
+    List<PcP> findLast();
+
+    List<PcP> getLowestPrice();
+
+    List<PcP> showPC();
 }

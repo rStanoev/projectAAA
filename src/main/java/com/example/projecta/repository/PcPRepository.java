@@ -10,4 +10,9 @@ import java.util.List;
 @Repository
 public interface PcPRepository extends JpaRepository<PcP, Long> {
     List<PcP> findAllByPc_Type(PcAndLaptopEnum type);
+
+    List<PcP> findByOrderByPriceAsc();
+
+
+    List<PcP> findAllByOrderByPriceAsc();
 }

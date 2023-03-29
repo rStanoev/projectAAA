@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,51 +19,38 @@
 <nav th:replace="fragments/nav2"></nav>
 <main>
     <section id="news">
-        <article>
+        <div class="artic" th:each="h : ${lHC}" th:object="${h}">
             <img src="img/attire.jpg" alt="news-cover">
-            <h3>A Viennese Attire in the Museum</h3>
-            <p>
+            <h3 th:text="*{name}">A Viennese Attire in the Museum</h3>
+            <p th:text="*{price}">
                 With their exhibition project "Beauty", Stefan Sagmeister and Jessica Walsh supply a multimedial plea in
                 the MAK for the desire for beauty.
             </p>
-        </article>
-        <article>
-            <img src="img/wien-modern.jpg" alt="news-cover">
-            <h3>Wien Modern</h3>
-            <p>Making contemporary music is at the heart of the Wien Modern festival, which takes to the city's
-                stages from October 28 to November 30, 2018. 110 events present.
-            </p>
-        </article>
-        <article>
-            <img src="img/bruegel.jpg" alt="news-cover">
-            <h3>Unique Bruegel exhibition</h3>
-            <p>
+        </div>
+        <div class="artic" th:each="pe : ${lPE}" th:object="${pe}">
+            <img src="img/attire.jpg" alt="news-cover">
+            <h3 th:text="*{name}">A Viennese Attire in the Museum</h3>
+            <p th:text="*{price}">
                 With their exhibition project "Beauty", Stefan Sagmeister and Jessica Walsh supply a multimedial plea in
                 the MAK for the desire for beauty.
             </p>
-        </article>
-        <article>
-            <img src="img/jewellery.jpg" alt="news-cover">
-            <h3>Vienna Jewellery Days</h3>
-            <p>Making contemporary music is at the heart of the Wien Modern festival, which takes to the city's
-                stages from October 28 to November 30, 2018. 110 events present.
-            </p>
-        </article>
-        <article>
-            <img src="img/bruegel.jpg" alt="news-cover">
-            <h3>Unique Bruegel exhibition</h3>
-            <p>
+        </div>
+        <div class="artic" th:each="p : ${lPC}" th:object="${p}">
+            <img src="img/attire.jpg" alt="news-cover">
+            <h3 th:text="*{name}">A Viennese Attire in the Museum</h3>
+            <p th:text="*{price}">
                 With their exhibition project "Beauty", Stefan Sagmeister and Jessica Walsh supply a multimedial plea in
                 the MAK for the desire for beauty.
             </p>
-        </article>
-        <article>
-            <img src="img/wien-modern.jpg" alt="news-cover">
-            <h3>Wien Modern</h3>
-            <p>Making contemporary music is at the heart of the Wien Modern festival, which takes to the city's
-                stages from October 28 to November 30, 2018. 110 events present.
+        </div>
+        <div class="artic" th:each="t : ${lTC}" th:object="${t}">
+            <img src="img/attire.jpg" alt="news-cover">
+            <h3 th:text="*{name}">A Viennese Attire in the Museum</h3>
+            <p th:text="*{price}">
+                With their exhibition project "Beauty", Stefan Sagmeister and Jessica Walsh supply a multimedial plea in
+                the MAK for the desire for beauty.
             </p>
-        </article>
+        </div>
     </section>
 </main>
 <footer>

@@ -139,6 +139,16 @@ public class HardwarePServiceImpl implements HardwarePService {
         return new LinkedHashSet<>(hardware);
     }
 
+    @Override
+    public List<HardwareP> findLast() {
+        return this.hardwarePRepository.findAll();
+    }
+
+    @Override
+    public List<HardwareP> getLowestPrice() {
+        return this.hardwarePRepository.findAllByOrderByPriceAsc();
+    }
+
 
     private List<HardwareP> getAllProduct() {
         return this.hardwarePRepository.findAll();
@@ -146,5 +156,21 @@ public class HardwarePServiceImpl implements HardwarePService {
 
     private List<HardwareP> getProductByType(HardwareEnum type) {
         return this.hardwarePRepository.findAllByHardware_Type(type);
+    }
+
+    @Override
+    public List<HardwareP> showHC() {
+        List<HardwareP> hardwarePSet1 = this.hardwarePRepository.findAllByOrderByPriceAsc();
+        List<HardwareP> hardwarePSet = this.hardwarePRepository.findAll();
+        HardwareP hardwareP = hardwarePSet.get(hardwarePSet1.size() - 1);
+        HardwareP hardwareP1 = hardwarePSet1.get(hardwarePSet1.size() - 1);
+        HardwareP hardwareP2 = hardwarePSet1.get(0);
+
+        List<HardwareP> hardwarePList = new LinkedList<>();
+        hardwarePList.add(hardwareP);
+        hardwarePList.add(hardwareP1);
+        hardwarePList.add(hardwareP2);
+
+        return hardwarePList;
     }
 }

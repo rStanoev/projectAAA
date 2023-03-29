@@ -11,4 +11,8 @@ import java.util.List;
 public interface TandCPRepository extends JpaRepository<TandCP, Long> {
 
     List<TandCP> findAllByTandC_Type(ChairAndTableEnum type);
+
+    List<TandCP> findByOrderByPriceAsc();
+
+    List<TandCP> findAllByOrderByPriceAsc();
 }

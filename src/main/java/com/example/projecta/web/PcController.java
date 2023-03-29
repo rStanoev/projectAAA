@@ -1,10 +1,7 @@
 package com.example.projecta.web;
 
 import com.example.projecta.domain.dto.binding.CommentsBindingModel;
-import com.example.projecta.domain.dto.entity.CommentsPC;
-import com.example.projecta.domain.dto.entity.CommentsPE;
-import com.example.projecta.domain.dto.entity.PcP;
-import com.example.projecta.domain.dto.entity.User;
+import com.example.projecta.domain.dto.entity.*;
 import com.example.projecta.domain.dto.model.PcModel;
 import com.example.projecta.domain.dto.model.ScListModel;
 import com.example.projecta.helper.idKeaper;
@@ -22,10 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/pc")
@@ -168,5 +162,6 @@ public class PcController {
 
         return "/Pc/detailsPC";
     }
+
 
 }

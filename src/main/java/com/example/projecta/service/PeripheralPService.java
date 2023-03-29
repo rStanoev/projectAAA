@@ -8,6 +8,7 @@ import com.example.projecta.domain.dto.model.PeripheralPListModel;
 import com.example.projecta.domain.dto.model.ShoppingCartModel;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Set;
 
 public interface PeripheralPService {
@@ -31,4 +32,10 @@ public interface PeripheralPService {
     void map(PeripheralP peripheralP);
 
     Set<PeripheralP> fill(Set<PeripheralP> peripherals);
+
+    List<PeripheralP> findLast();
+
+    List<PeripheralP> getLowestPrice();
+
+    List<PeripheralP> showPE();
 }

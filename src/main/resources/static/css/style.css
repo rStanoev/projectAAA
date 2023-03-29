@@ -63,20 +63,20 @@ main {
     margin-right: 300px;
 }
 
-#news article {
+#news .artic {
     width: 30%;
     display: inline-block;
     vertical-align: top;
     margin: 0 8px;
 }
 
-#news article img {
+#news .artic img {
     width: 100%;
     max-width: 100%;
     border-radius: 10px;
 }
 
-#news article h3 {
+#news .artic h3 {
     color: #e52236;
 }
 

@@ -136,6 +136,31 @@ public class TandCPServiceImpl implements TandCPService {
         return new LinkedHashSet<>(gettANDcs);
     }
 
+    @Override
+    public List<TandCP> findLast() {
+        return this.tandCPRepository.findAll();
+    }
+
+    @Override
+    public List<TandCP> getLowestPrice() {
+        return this.tandCPRepository.findByOrderByPriceAsc();
+    }
+
+    @Override
+    public List<TandCP> showTC() {
+        List<TandCP> tandCPSet = this.tandCPRepository.findAll();
+        List<TandCP> tandCPSet1 = this.tandCPRepository.findAllByOrderByPriceAsc();
+        TandCP tandCP = tandCPSet.get(tandCPSet.size() - 1);
+        TandCP tandCP1 = tandCPSet1.get(tandCPSet1.size() - 1);
+        TandCP tandCP2 = tandCPSet1.get(0);
+        List<TandCP> tandCPList = new LinkedList<>();
+        tandCPList.add(tandCP);
+        tandCPList.add(tandCP1);
+        tandCPList.add(tandCP2);
+
+        return tandCPList;
+    }
+
 
     private List<TandCP> getAllTandC() {
         return tandCPRepository.findAll();
