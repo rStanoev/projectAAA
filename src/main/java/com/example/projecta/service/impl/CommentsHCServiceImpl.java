@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -57,6 +58,8 @@ public class CommentsHCServiceImpl implements CommentsHCService {
     public Set<CommentsHC> getC(Long id) {
         HardwareP hardwareP = hardwarePService.getById3(id);
 
-        return hardwareP.getCommentsHCSet();
+        Set<CommentsHC> hc = hardwareP.getCommentsHCSet();
+        hc.stream().sorted(Comparator.comparing(CommentsHC::getId));
+        return hc;
     }
 }

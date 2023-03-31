@@ -1,17 +1,17 @@
 package com.example.projecta.web;
 
+import com.example.projecta.domain.dto.binding.MessagesBindingModel;
 import com.example.projecta.domain.dto.binding.UserRegisterBindingModel;
+import com.example.projecta.domain.dto.entity.Messages;
 import com.example.projecta.domain.dto.entity.User;
 import com.example.projecta.domain.dto.view.UserViewModel;
 import com.example.projecta.repository.GenderRepository;
 import com.example.projecta.repository.UserRepository;
+import com.example.projecta.service.MessagesService;
 import com.example.projecta.service.UserService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/users")
@@ -32,15 +32,17 @@ public class UserController {
 
     private final GenderRepository genderRepository;
     private final UserRepository userRepository;
+    private final MessagesService messagesService;
 
 
     @Autowired
     public UserController(UserService userService, ModelMapper modelMapper, GenderRepository genderRepository,
-                          UserRepository userRepository) {
+                          UserRepository userRepository, MessagesService messagesService) {
         this.userService = userService;
         this.modelMapper = modelMapper;
         this.genderRepository = genderRepository;
         this.userRepository = userRepository;
+        this.messagesService = messagesService;
     }
 
     @ModelAttribute("userRegisterBindingModel")
@@ -112,5 +114,62 @@ public class UserController {
         return "listThatAreUsers";
     }
 
+    @GetMapping("/show/allUsers")
+    private String showAllUsers(Principal principal, Model model) {
+        String username = principal.getName();
+        User user = userService.getUser(username);
+
+        model.addAttribute("userList", userService.findAllUsersExceptLoggedOne(user));
+
+        return "listOfAllUsers";
+    }
+
+
+    @GetMapping("/shomMessages/{name}")
+    private String showMessages(@PathVariable("name") String name, Principal principal, Model model) {
+        String username = principal.getName();
+        User user = userService.getUser(username);
+        User user1 = userService.getUser2(name);
+
+        List<Messages> m = userService.getConversation(user, user1);
+
+        model.addAttribute("messagesList", m);
+        model.addAttribute("loggedUser", user.getId());
+        model.addAttribute("otherUser", user1.getId());
+
+        return "Messages";
+    }
+
+    @ModelAttribute("messagesBindingModel")
+    public MessagesBindingModel mesInit() {
+        return new MessagesBindingModel();
+    }
+
+    @PostMapping("/addMessages/{id}")
+    public String addMessages(@Valid MessagesBindingModel messagesBindingModel, BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes, Principal principal, @PathVariable("id") Long id, Model model) throws IOException {
+
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("messagesBindingModel", messagesBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.messagesBindingModel", bindingResult);
+
+            return "listOfAllUsers";
+        }
+        String username = principal.getName();
+        User user = userService.getUser(username);
+        User user1 = userService.getById3(id);
+
+
+        messagesService.addMessage(messagesBindingModel, id, user);
+
+        List<Messages> m = userService.getConversation(user, user1);
+
+        model.addAttribute("messagesList", m);
+        model.addAttribute("loggedUser", user.getId());
+        model.addAttribute("otherUser", user1.getId());
+
+        return "Messages";
+    }
 
 }

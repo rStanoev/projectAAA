@@ -34,11 +34,13 @@ public class UserServiceImpl implements UserService {
 
     private final PcBoughtService pcBoughtService;
 
+    private final MessagesService messagesService;
+
     Set<HardwareP> hardwarePS = new HashSet<>();
 
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, GenderRepository genderRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, TandCBoughtService tandCBoughtService, PeripheralBoughtService peripheralBoughtService, HardwareBoughtService hardwareBoughtService, PcBoughtService pcBoughtService) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, GenderRepository genderRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, TandCBoughtService tandCBoughtService, PeripheralBoughtService peripheralBoughtService, HardwareBoughtService hardwareBoughtService, PcBoughtService pcBoughtService, MessagesService messagesService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.genderRepository = genderRepository;
@@ -48,6 +50,7 @@ public class UserServiceImpl implements UserService {
         this.peripheralBoughtService = peripheralBoughtService;
         this.hardwareBoughtService = hardwareBoughtService;
         this.pcBoughtService = pcBoughtService;
+        this.messagesService = messagesService;
     }
 
 
@@ -73,6 +76,9 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findById(id);
     }
 
+
+
+
     @Override
     public User getUser(String username) {
         return userRepository.findByEmail(username)
@@ -92,6 +98,39 @@ public class UserServiceImpl implements UserService {
         user.setRoles(role);
 
         this.userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public List<User> findAllUsersExceptLoggedOne(User user) {
+        List<User> users = new LinkedList<>();
+        List<User> users2 = this.userRepository.findAll();
+        for (User u : users2) {
+            if (!u.getEmail().equals(user.getEmail())) {
+                users.add(u);
+            }
+        }
+        return users;
+    }
+
+    @Override
+    public List<Messages> getConversation(User user, User user1) {
+        List<Messages> messages = messagesService.findAll();
+        List<Messages> messages1 = new LinkedList<>();
+
+        for (Messages m : messages) {
+            if (m.getUser().getId() == user.getId() && m.getReceiverId() == user1.getId()) {
+                messages1.add(m);
+            }else if (m.getUser().getId() == user1.getId() && m.getReceiverId() == user.getId()) {
+                messages1.add(m);
+            }
+        }
+
+        return messages1;
+    }
+
+    @Override
+    public User getById3(Long id) {
+        return this.userRepository.findById(id).orElse(null);
     }
 
     @Override

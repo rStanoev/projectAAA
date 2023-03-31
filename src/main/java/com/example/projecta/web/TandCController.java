@@ -139,7 +139,7 @@ public class TandCController {
 
     @PostMapping("/addComment")
     public String addCommentHC(@Valid CommentsBindingModel commentsBindingModel, BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes, Principal principal) {
+                               RedirectAttributes redirectAttributes, Principal principal, Model model) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("commentsBindingModel", commentsBindingModel);
@@ -148,7 +148,16 @@ public class TandCController {
             return "/TableAndChair/detailsTC";
         }
         Long id = idKeaper.getId();
+
+        TCModel tANDc = tandCPService.getById(id);
+
+        model.addAttribute("tANDc", tANDc);
+
         commentsTCService.addCommentTC(commentsBindingModel, id, principal);
+
+        Set<CommentsTC> tcSet = commentsTCService.getC(id);
+
+        model.addAttribute("tcset", tcSet);
 
         return "/TableAndChair/detailsTC";
     }

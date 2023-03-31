@@ -195,7 +195,7 @@ public class HardwareController {
 
     @PostMapping("/addComment")
     public String addCommentHC(@Valid CommentsBindingModel commentsBindingModel, BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes, Principal principal) {
+                               RedirectAttributes redirectAttributes, Principal principal, Model model) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("commentsBindingModel", commentsBindingModel);
@@ -206,8 +206,15 @@ public class HardwareController {
 
         Long id = idKeaper.getId();
 
+        HardwareModel hardware = hardwarePService.getById(id);
+
+        model.addAttribute("hardware", hardware);
 
         commentsHCService.addCommentHC(commentsBindingModel, id, principal);
+
+        Set<CommentsHC> hcSet = commentsHCService.getC(id);
+
+        model.addAttribute("hcset", hcSet);
 
         return "/Hardware/detailsHC";
     }

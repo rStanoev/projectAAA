@@ -4,7 +4,6 @@ import com.example.projecta.domain.dto.binding.UserRegisterBindingModel;
 import com.example.projecta.domain.dto.entity.*;
 import com.example.projecta.domain.dto.view.UserViewModel;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -43,4 +42,10 @@ public interface UserService {
     User getUser2(String name);
 
     void changeRole(User user);
+
+    List<User> findAllUsersExceptLoggedOne(User user);
+
+    List<Messages> getConversation(User user, User user1);
+
+    User getById3(Long id);
 }

@@ -148,16 +148,18 @@ public class TandCPServiceImpl implements TandCPService {
 
     @Override
     public List<TandCP> showTC() {
+        List<TandCP> tandCPList = new LinkedList<>();
         List<TandCP> tandCPSet = this.tandCPRepository.findAll();
         List<TandCP> tandCPSet1 = this.tandCPRepository.findAllByOrderByPriceAsc();
+        if (tandCPSet.size() != 0 && tandCPSet1.size() != 0) {
         TandCP tandCP = tandCPSet.get(tandCPSet.size() - 1);
         TandCP tandCP1 = tandCPSet1.get(tandCPSet1.size() - 1);
         TandCP tandCP2 = tandCPSet1.get(0);
-        List<TandCP> tandCPList = new LinkedList<>();
+
         tandCPList.add(tandCP);
         tandCPList.add(tandCP1);
         tandCPList.add(tandCP2);
-
+    }
         return tandCPList;
     }
 

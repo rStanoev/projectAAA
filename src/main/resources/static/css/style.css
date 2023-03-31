@@ -150,6 +150,13 @@ footer h6 {
     display: block;
 }
 
+.messenger {
+    position: sticky;
+    display: flex;
+    justify-content: end;
+    font-size: 50px;
+}
+
 
 
 .dropdown:hover .dropdown-content {display: block;}

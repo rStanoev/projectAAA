@@ -160,17 +160,20 @@ public class HardwarePServiceImpl implements HardwarePService {
 
     @Override
     public List<HardwareP> showHC() {
+        List<HardwareP> hardwarePList = new LinkedList<>();
         List<HardwareP> hardwarePSet1 = this.hardwarePRepository.findAllByOrderByPriceAsc();
         List<HardwareP> hardwarePSet = this.hardwarePRepository.findAll();
-        HardwareP hardwareP = hardwarePSet.get(hardwarePSet1.size() - 1);
-        HardwareP hardwareP1 = hardwarePSet1.get(hardwarePSet1.size() - 1);
-        HardwareP hardwareP2 = hardwarePSet1.get(0);
+        if (hardwarePSet1.size() != 0 && hardwarePSet.size() != 0) {
+            HardwareP hardwareP = hardwarePSet.get(hardwarePSet1.size() - 1);
+            HardwareP hardwareP1 = hardwarePSet1.get(hardwarePSet1.size() - 1);
+            HardwareP hardwareP2 = hardwarePSet1.get(0);
 
-        List<HardwareP> hardwarePList = new LinkedList<>();
-        hardwarePList.add(hardwareP);
-        hardwarePList.add(hardwareP1);
-        hardwarePList.add(hardwareP2);
+            hardwarePList.add(hardwareP);
+            hardwarePList.add(hardwareP1);
+            hardwarePList.add(hardwareP2);
 
+        }
         return hardwarePList;
+
     }
 }

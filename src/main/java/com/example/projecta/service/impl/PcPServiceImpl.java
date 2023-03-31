@@ -144,17 +144,19 @@ public class PcPServiceImpl implements PcPService {
 
     @Override
     public List<PcP> showPC() {
+        List<PcP> pcPList = new LinkedList<>();
         List<PcP> pcPSet = this.pcPRepository.findAll();
         List<PcP> pcPSet1 = this.pcPRepository.findAllByOrderByPriceAsc();
+        if (pcPSet.size() != 0 && pcPSet1.size() != 0) {
         PcP pcP = pcPSet.get(pcPSet.size() - 1);
         PcP pcP1 = pcPSet1.get(pcPSet1.size() - 1);
         PcP pcP2 = pcPSet1.get(0);
 
-        List<PcP> pcPList = new LinkedList<>();
+
         pcPList.add(pcP);
         pcPList.add(pcP1);
         pcPList.add(pcP2);
-
+    }
         return pcPList;
     }
 

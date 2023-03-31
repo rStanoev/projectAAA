@@ -149,7 +149,7 @@ public class PcController {
 
     @PostMapping("/addComment")
     public String addCommentHC(@Valid CommentsBindingModel commentsBindingModel, BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes, Principal principal) {
+                               RedirectAttributes redirectAttributes, Principal principal, Model model) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("commentsBindingModel", commentsBindingModel);
@@ -158,7 +158,16 @@ public class PcController {
             return "/Pc/detailsPC";
         }
         Long id = idKeaper.getId();
+
+        PcModel pc = pcPService.getById(id);
+
+        model.addAttribute("pc", pc);
+
         commentsPCService.addCommentPC(commentsBindingModel, id, principal);
+
+        Set<CommentsPC> pcSet = commentsPCService.getC(id);
+
+        model.addAttribute("pcset", pcSet);
 
         return "/Pc/detailsPC";
     }

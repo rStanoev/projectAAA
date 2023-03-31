@@ -182,19 +182,28 @@ public class PeripheralController {
 
     @PostMapping("/addComment")
     public String addCommentHC(@Valid CommentsBindingModel commentsBindingModel, BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes, Principal principal) {
+                               RedirectAttributes redirectAttributes, Principal principal, Model model) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("commentsBindingModel", commentsBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.commentsBindingModel", bindingResult);
 
-            return "index";
+            return "/Peripheral/detailsPE";
         }
 
         Long id = idKeaper.getId();
+
+        PeripheralModel peripheral = peripheralPService.getById(id);
+
+        model.addAttribute("peripheral", peripheral);
+
         commentsPEService.addCommentPE(commentsBindingModel, id, principal);
 
-        return "index";
+        Set<CommentsPE> peSet = commentsPEService.getC(id);
+
+        model.addAttribute("peset", peSet);
+
+        return "/Peripheral/detailsPE";
     }
 
 

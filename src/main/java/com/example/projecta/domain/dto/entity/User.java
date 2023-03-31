@@ -1,17 +1,10 @@
 package com.example.projecta.domain.dto.entity;
 
 
-import com.example.projecta.domain.dto.model.ScListModel;
-import com.example.projecta.domain.dto.model.ShoppingCartModel;
-import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -69,6 +62,9 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<TandCBought> tANDcsBought;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<Messages> messages;
 
 
     public User(String username, String email, String password) {
@@ -216,5 +212,13 @@ public class User {
 
     public void settANDcsBought(Set<TandCBought> tANDcsBought) {
         this.tANDcsBought = tANDcsBought;
+    }
+
+    public Set<Messages> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Set<Messages> messages) {
+        this.messages = messages;
     }
 }
