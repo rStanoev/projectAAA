@@ -1,10 +1,7 @@
 package com.example.projecta.service.impl;
 
 import com.example.projecta.domain.dto.binding.PcBindingModel;
-import com.example.projecta.domain.dto.entity.PcBought;
-import com.example.projecta.domain.dto.entity.PcP;
-import com.example.projecta.domain.dto.entity.PeripheralP;
-import com.example.projecta.domain.dto.entity.User;
+import com.example.projecta.domain.dto.entity.*;
 import com.example.projecta.domain.dto.entity.enums.PcAndLaptopEnum;
 import com.example.projecta.domain.dto.model.PcModel;
 import com.example.projecta.domain.dto.model.PcPListModel;
@@ -13,6 +10,7 @@ import com.example.projecta.repository.UserRepository;
 import com.example.projecta.service.PcBoughtService;
 import com.example.projecta.service.PcPService;
 import com.example.projecta.service.PcService;
+import com.example.projecta.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +26,8 @@ public class PcPServiceImpl implements PcPService {
     private final PcService pcService;
     private final ModelMapper modelMapper;
 
+    private final UserService userService;
+
     private final UserRepository userRepository;
 
     private final PcBoughtService pcBoughtService;
@@ -36,10 +36,11 @@ public class PcPServiceImpl implements PcPService {
 
 
     @Autowired
-    public PcPServiceImpl(PcPRepository pcPRepository, PcService pcService, ModelMapper modelMapper, UserRepository userRepository, PcBoughtService pcBoughtService) {
+    public PcPServiceImpl(PcPRepository pcPRepository, PcService pcService, ModelMapper modelMapper, UserService userService, UserRepository userRepository, PcBoughtService pcBoughtService) {
         this.pcPRepository = pcPRepository;
         this.pcService = pcService;
         this.modelMapper = modelMapper;
+        this.userService = userService;
         this.userRepository = userRepository;
         this.pcBoughtService = pcBoughtService;
     }
@@ -159,6 +160,18 @@ public class PcPServiceImpl implements PcPService {
     }
         return pcPList;
     }
+
+    @Override
+    public Double getSumOfAllElements(Set<PcP> pc) {
+        Double totalSum = 0.0;
+
+        for (PcP p : pc) {
+            totalSum += p.getPrice();
+        }
+        return totalSum;
+    }
+
+
 
 
     private List<PcP> getAllProduct() {

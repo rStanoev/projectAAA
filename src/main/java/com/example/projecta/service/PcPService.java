@@ -36,4 +36,8 @@ public interface PcPService {
     List<PcP> getLowestPrice();
 
     List<PcP> showPC();
+
+    Double getSumOfAllElements(Set<PcP> pc);
+
+
 }

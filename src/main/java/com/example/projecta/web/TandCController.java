@@ -74,6 +74,10 @@ public class TandCController {
     public String getTandC(@PathVariable("id") Long id, Model model) {
         TCModel tANDc = tandCPService.getById(id);
 
+        if (tANDc == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         model.addAttribute("tANDc", tANDc);
 
         idKeaper.setId(id);
@@ -91,20 +95,37 @@ public class TandCController {
     public String getP(@PathVariable("id") Long id , Model model, Principal principal) {
         TandCP tandCP = tandCPService.getById2(id, principal);
 
+        if (tandCP == null) {
+            throw new ProductNotFoundException(id);
+        }
 
         User user = userRepository.findByEmail(principal.getName()).orElseThrow(null);
 
+        if (user == null) {
+            throw new UserNotFoundException(principal.getName());
+        }
+
         model.addAttribute("cartLISTTTC", user.gettANDcs());
 
-        return "shoppingCart";
+        return "redirect:/";
 
     }
 
     @GetMapping("/remove/{id}")
     public String removeP(@PathVariable("id") Long id , Model model, Principal principal) {
         TandCP tandCP = tandCPService.getById3(id);
+
+        if (tandCP == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         String username = principal.getName();
         User user = userService.getUser(username);
+
+        if (user == null) {
+            throw new UserNotFoundException(username);
+        }
+
         tandCPModelList = user.gettANDcs();
 
         this.userService.removeTC(tandCP, user, tandCPModelList);
@@ -117,9 +138,20 @@ public class TandCController {
 
     @GetMapping("/buy/{id}")
     public String buyP(@PathVariable("id") Long id , Model model, Principal principal) {
-        TandCP tandCP = tandCPService.getById3(id);
         String username = principal.getName();
+        TandCP tandCP = tandCPService.getById3(id);
+
+        if (tandCP == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         User user = userService.getUser(username);
+
+        if (user == null) {
+            throw new UserNotFoundException(username);
+        }
+
+
         tandCPModelList = user.gettANDcs();
 
         this.userService.buyTC(tandCP, user, tandCPModelList);
@@ -145,11 +177,15 @@ public class TandCController {
             redirectAttributes.addFlashAttribute("commentsBindingModel", commentsBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.commentsBindingModel", bindingResult);
 
-            return "/TableAndChair/detailsTC";
+            return "redirect:/";
         }
         Long id = idKeaper.getId();
 
         TCModel tANDc = tandCPService.getById(id);
+
+        if (tANDc == null) {
+            throw new ProductNotFoundException(id);
+        }
 
         model.addAttribute("tANDc", tANDc);
 

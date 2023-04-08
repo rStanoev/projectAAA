@@ -1,0 +1,25 @@
+body {
+    background-image: linear-gradient(to right, rgba(28, 159, 235, 0.925) , rgb(255, 255, 255));
+}
+
+.jumbotron {
+    background-image: linear-gradient(to right, rgba(28, 159, 235, 0.925) , rgb(255, 255, 255));
+}
+
+.bg-info {
+    background-image: linear-gradient(to right, rgba(28, 159, 235, 0.925) , rgb(255, 255, 255));
+}
+
+.btn-info {
+    border: 2px solid #ecc649;
+    background-color: #f9f0d2;
+    color: #7b6f00;
+}
+
+.btn-info:hover {
+    background-color: #ecc649;
+}
+
+#lables {
+    color: #ecc649;
+}

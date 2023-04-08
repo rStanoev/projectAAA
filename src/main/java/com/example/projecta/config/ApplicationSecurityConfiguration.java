@@ -1,5 +1,6 @@
 package com.example.projecta.config;
 
+import com.example.projecta.domain.dto.entity.enums.UserRoles;
 import com.example.projecta.repository.UserRepository;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +34,11 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                         requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
                 // the next line allows access to the home page, login page and registration for everyone
                         antMatchers("/", "/login", "/users/register").permitAll().
+                        antMatchers("/products/add").hasAnyRole(UserRoles.OWNER.name(), UserRoles.ADMIN.name()).
+                antMatchers("/users/all").hasAnyRole(UserRoles.OWNER.name(), UserRoles.ADMIN.name()).
+
+
+
                 and().
                 // configure login with login HTML form with two input fileds
                         formLogin().
@@ -48,7 +54,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 // The place where we should land in case that the login is successful
                         defaultSuccessUrl("/").
                 // the place where I should land if the login is NOT successful
-                        failureForwardUrl("/login?error=true").
+                        failureForwardUrl("/login-error").
                 and().
                     logout().
                 // This is the URL which spring will implement for me and will log the user out.

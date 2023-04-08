@@ -14,6 +14,7 @@ public class TCModel {
 
     private Double price;
 
+    private String description;
 
     private TandC tandC;
 
@@ -57,5 +58,13 @@ public class TCModel {
 
     public void setTandC(TandC tandC) {
         this.tandC = tandC;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

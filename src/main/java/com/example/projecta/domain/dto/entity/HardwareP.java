@@ -12,11 +12,14 @@ public class HardwareP {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
     private Double price;
+
+    @Column
+    private String description;
 
     @ManyToOne
     private Hardware hardware;
@@ -26,6 +29,7 @@ public class HardwareP {
 
     public HardwareP() {
     }
+
 
     public Long getId() {
         return id;
@@ -65,5 +69,13 @@ public class HardwareP {
 
     public void setCommentsHCSet(Set<CommentsHC> commentsHCSet) {
         this.commentsHCSet = commentsHCSet;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

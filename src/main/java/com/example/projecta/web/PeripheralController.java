@@ -3,7 +3,9 @@ package com.example.projecta.web;
 import com.example.projecta.domain.dto.binding.CommentsBindingModel;
 import com.example.projecta.domain.dto.entity.*;
 import com.example.projecta.domain.dto.model.PeripheralModel;
+import com.example.projecta.domain.dto.model.ProductNotFoundException;
 import com.example.projecta.domain.dto.model.ScListModel;
+import com.example.projecta.domain.dto.model.UserNotFoundException;
 import com.example.projecta.helper.idKeaper;
 import com.example.projecta.repository.UserRepository;
 import com.example.projecta.service.CommentsPEService;
@@ -116,6 +118,10 @@ public class PeripheralController {
     public String getPeripheral(@PathVariable("id") Long id, Model model) {
         PeripheralModel peripheral = peripheralPService.getById(id);
 
+        if (peripheral == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         model.addAttribute("peripheral", peripheral);
 
         idKeaper.setId(id);
@@ -134,20 +140,37 @@ public class PeripheralController {
     public String getP(@PathVariable("id") Long id , Model model, Principal principal) {
         PeripheralP peripheralP = peripheralPService.getById2(id,  principal);
 
+        if (peripheralP == null) {
+            throw new ProductNotFoundException(id);
+        }
 
         User user = userRepository.findByEmail(principal.getName()).orElseThrow(null);
 
+        if (user == null) {
+            throw new  UserNotFoundException(principal.getName());
+        }
+
         model.addAttribute("cartLISTTPE", user.getPeripherals());
 
-        return "shoppingCart";
+        return "redirect:/";
 
     }
 
     @GetMapping("/remove/{id}")
     public String removeP(@PathVariable("id") Long id , Model model, Principal principal) {
-        PeripheralP peripheralP = peripheralPService.getById3(id);
         String username = principal.getName();
+        PeripheralP peripheralP = peripheralPService.getById3(id);
+
+        if (peripheralP == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         User user = userService.getUser(username);
+
+        if (user == null) {
+            throw new  UserNotFoundException(username);
+        }
+
         peripheralPModelList = user.getPeripherals();
 
         this.userService.removePE(peripheralP, user, peripheralPModelList);
@@ -161,8 +184,18 @@ public class PeripheralController {
     @GetMapping("/buy/{id}")
     public String buyP(@PathVariable("id") Long id , Model model, Principal principal) {
         PeripheralP peripheralP = peripheralPService.getById3(id);
+
+        if (peripheralP == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         String username = principal.getName();
         User user = userService.getUser(username);
+
+        if (user == null) {
+            throw new UserNotFoundException(username);
+        }
+
         peripheralPModelList = user.getPeripherals();
 
         this.userService.buyPE(peripheralP, user, peripheralPModelList);
@@ -188,12 +221,16 @@ public class PeripheralController {
             redirectAttributes.addFlashAttribute("commentsBindingModel", commentsBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.commentsBindingModel", bindingResult);
 
-            return "/Peripheral/detailsPE";
+            return "redirect:/";
         }
 
         Long id = idKeaper.getId();
 
         PeripheralModel peripheral = peripheralPService.getById(id);
+
+        if (peripheral == null) {
+            throw new ProductNotFoundException(id);
+        }
 
         model.addAttribute("peripheral", peripheral);
 

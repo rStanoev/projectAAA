@@ -176,4 +176,18 @@ public class HardwarePServiceImpl implements HardwarePService {
         return hardwarePList;
 
     }
+
+    @Override
+    public Double getSumOfAllElements(Set<HardwareP> hardware) {
+        Double totalSum = 0.0;
+
+        for (HardwareP h : hardware) {
+           totalSum += h.getPrice();
+        }
+        return totalSum;
+    }
+
+
+
+
 }

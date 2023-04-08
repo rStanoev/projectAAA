@@ -6,6 +6,7 @@ import com.example.projecta.domain.dto.binding.PeripheralBindingModel;
 import com.example.projecta.domain.dto.binding.TandCbindingModel;
 import com.example.projecta.domain.dto.entity.*;
 import com.example.projecta.domain.dto.model.ShoppingCartModel;
+import com.example.projecta.domain.dto.model.UserNotFoundException;
 import com.example.projecta.repository.UserRepository;
 import com.example.projecta.service.*;
 import org.modelmapper.ModelMapper;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -181,16 +183,31 @@ public class ProductsController {
         model.addAttribute("cartLISTTPC", user.getPcs());
         model.addAttribute("cartLISTTTC", user.gettANDcs());
 
+        Double sumHC = hardwarePService.getSumOfAllElements(user.getHardware());
+        Double sumPE = peripheralPService.getSumOfAllElements(user.getPeripherals());
+        Double sumPC = pcPService.getSumOfAllElements(user.getPcs());
+        Double sumTC = tandCPService.getSumOfAllElements(user.gettANDcs());
+
+        model.addAttribute("totalSum", sumHC + sumPE + sumPC + sumTC);
+        model.addAttribute("quantity", user.getHardware().size() + user.getPeripherals().size() + user.getPcs().size() + user.gettANDcs().size());
+
+
         return "shoppingCart";
     }
 
     @GetMapping("/buy/all")
     public String buyAllP(Principal principal) {
         User user = userRepository.findByEmail(principal.getName()).orElseThrow(null);
+
+        if (user == null) {
+            throw new UserNotFoundException(principal.getName());
+        }
+
         Set<HardwareP> hardwarePS = hardwarePService.fill(user.getHardware());
         Set<PeripheralP> peripheralPS = peripheralPService.fill(user.getPeripherals());
         Set<PcP> pcPS = pcPService.fill(user.getPcs());
         Set<TandCP> tandCPS = tandCPService.fill(user.gettANDcs());
+
 
         hardwarePService.buyAllHardware(principal);
         peripheralPService.buyAllPeripheral(principal);

@@ -157,8 +157,28 @@ footer h6 {
     font-size: 50px;
 }
 
+.other {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.combine {
+    display: flex;
+    flex-direction: row;
+}
+
 
 
 .dropdown:hover .dropdown-content {display: block;}
+
+.messenger {
+    position: sticky;
+    display: flex;
+    justify-content: end;
+    font-size: 50px;
+}
+
+
 
 

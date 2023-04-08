@@ -12,11 +12,14 @@ public class PeripheralP {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
     private Double price;
+
+    @Column
+    private String description;
 
     @ManyToOne
     private Peripheral peripheral;
@@ -65,5 +68,13 @@ public class PeripheralP {
 
     public void setCommentsPESet(Set<CommentsPE> commentsPESet) {
         this.commentsPESet = commentsPESet;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

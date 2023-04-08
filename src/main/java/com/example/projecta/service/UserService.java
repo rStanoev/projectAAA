@@ -48,4 +48,14 @@ public interface UserService {
     List<Messages> getConversation(User user, User user1);
 
     User getById3(Long id);
+
+    boolean findUserByUserNameOrEmail(String username, String email);
+
+    List<User> findAllUsersDesc();
+
+    List<User> findAll();
+
+    void sANDf(User user);
+
+    void sANDf2(List<User> users, int sum);
 }

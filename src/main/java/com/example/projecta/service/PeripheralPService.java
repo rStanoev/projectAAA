@@ -38,4 +38,8 @@ public interface PeripheralPService {
     List<PeripheralP> getLowestPrice();
 
     List<PeripheralP> showPE();
+
+    Double getSumOfAllElements(Set<PeripheralP> peripheral);
+
+
 }

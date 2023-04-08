@@ -1,11 +1,46 @@
 .jumbotron {
-    background-image: url(/static/images/coffee-shop.jpg);
     background-position: center;
     background-attachment: scroll;
     background-size: cover;
+    background-image: linear-gradient(to right, rgba(28, 159, 235, 0.925) , rgb(255, 255, 255));
 
 }
 
 .bg-blur {
-    background-color: rgba(0, 0, 0, 0.7); /* Black w/opacity/see-through */
+    background-color: #f9f0d2; /* Black w/opacity/see-through */
+    color: #7b6f00;
+    border: 2px solid #ecc649;
+}
+
+body {
+    background-image: linear-gradient(to right, rgba(28, 159, 235, 0.925) , rgb(255, 255, 255));
+}
+
+#mainMain {
+    background-image: linear-gradient(to right, rgba(28, 159, 235, 0.925) , rgb(255, 255, 255));
+}
+
+#strg {
+    border: 2px solid #ecc649;
+}
+
+.homelogin a {
+    text-decoration: none;
+    color: #7b6f00;
+}
+
+#cha {
+    color: #7b6f00;
+}
+
+#bb {
+    background-color: #f9f0d2; /* Black w/opacity/see-through */
+    color: #7b6f00;
+    border: 2px solid #ecc649;
+}
+
+#bb:hover {
+    background-color: #ecc649; /* Black w/opacity/see-through */
+    color: #7b6f00;
+    border: 2px solid #ecc649;
 }

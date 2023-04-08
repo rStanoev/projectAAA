@@ -14,6 +14,8 @@ public class PeripheralModel {
 
     private Double price;
 
+    private String description;
+
 
     private Peripheral peripheral;
 
@@ -50,5 +52,13 @@ public class PeripheralModel {
 
     public void setPeripheral(Peripheral peripheral) {
         this.peripheral = peripheral;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

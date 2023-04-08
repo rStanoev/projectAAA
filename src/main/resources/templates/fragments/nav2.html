@@ -48,9 +48,18 @@
     </div>
     <div class="combine">
       <div class="other">
+        <th:block sec:authorize="hasAnyRole('ROLE_OWNER','ROLE_ADMIN')">
         <a href="/products/add">Add Product</a>
+        </th:block>
+        <th:block sec:authorize="!isAuthenticated()">
         <a href="/users/register">register</a>
+        </th:block>
+        <th:block sec:authorize="isAuthenticated()">
         <a href="/products/view"><i class="fa-solid fa-cart-shopping"></i></a>
+        </th:block>
+        <th:block sec:authorize="!isAuthenticated()">
+          <a href="/login"><i class="fa-solid fa-cart-shopping"></i></a>
+        </th:block>
       </div>
       <div class="dropdown">
         <a
@@ -73,15 +82,19 @@
                 class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdownMenuAvatar"
         >
+          <th:block sec:authorize="isAuthenticated()">
           <li>
             <a class="dropdown-item" href="/users/profile">My profile</a>
           </li>
+          </th:block>
           <li>
-            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" href="/users/rankList">Game</a>
           </li>
+          <th:block sec:authorize="hasAnyRole('ROLE_OWNER','ROLE_ADMIN')">
           <li>
             <a class="dropdown-item" href="/users/all">Users</a>
           </li>
+          </th:block>
           <li>
             <th:block sec:authorize="isAuthenticated()">
             <form action="/users/logout" method="post">

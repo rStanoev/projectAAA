@@ -1,0 +1,35 @@
+body {
+    background-image: linear-gradient(to right, rgba(28, 159, 235, 0.925) , rgb(255, 255, 255));
+}
+table td {
+    padding: 15px;
+}
+table thead td {
+    background-color: #ecc649;
+    color: #7b6f00;
+    font-weight: bold;
+    font-size: 13px;
+    border: 4px solid #ecc649;
+}
+table tbody td {
+    color: #7b6f00;
+    border: 1px solid #dddfe1;
+}
+table tbody tr {
+    background-color: #f9f0d2;
+}
+table tbody tr:nth-child(odd) {
+    background-color: #f9f0d2;
+
+}
+i {
+    text-decoration: none;
+}
+
+#cha, #cha1 {
+    color: #7b6f00;
+}
+
+#cha:hover {
+    color: #f0270d;
+}

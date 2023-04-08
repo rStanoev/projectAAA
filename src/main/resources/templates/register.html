@@ -4,24 +4,24 @@
 <head th:fragment="head">
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Coffee Shop Application</title>
+    <title>Register</title>
     <link rel="stylesheet" href="/css/registerFolder/reset-css.css">
     <link rel="stylesheet" href="/css/registerFolder/bootstrap.min.css">
     <link rel="stylesheet" href="/css/registerFolder/register.css">
 </head>
 <body class="bg-secondary">
-<main role="main" class="bg-secondary">
+<main role="main" class="bg-secondary" id="mainMain">
     <div class="jumbotron">
         <div class="container text-light ">
             <h1 class="display-3 ">
-                <strong class="bg-blur rounded border-left border-white pl-3 border-bottom">
+                <strong class="bg-blur rounded border-left border-white pl-3 border-bottom" style="padding-right: 1rem" id="strg">
                     Register</strong></h1>
         </div>
         <div class="container bg-blur rounded p-5 mt-5 w-75">
             <form th:action="@{/users/register}" th:method="POST" th:object="${userRegisterBindingModel}"
                   class=" text-center text-light">
                 <div class="form-group row">
-                    <label for="username" class="col-sm-2 col-form-label">Username</label>
+                    <label for="username" class="col-sm-2 col-form-label" style="color: #7b6f00">FullName</label>
                     <div class="col-sm-10">
                         <input th:field="*{fullName}" th:errorclass="is-invalid" type="text" class="form-control" id="fullName"
                                aria-describedby="fullNameHelpInline" placeholder="FullName">
@@ -31,17 +31,17 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="username" class="col-sm-2 col-form-label">Username</label>
+                    <label for="username" class="col-sm-2 col-form-label" style="color: #7b6f00">Username</label>
                     <div class="col-sm-10">
                         <input th:field="*{username}" th:errorclass="is-invalid" type="text" class="form-control" id="username"
                                aria-describedby="usernameHelpInline" placeholder="Username">
                         <small id="usernameHelpInline" class="invalid-feedback bg-danger text-light rounded">
-                            Username length must be between 5 and 20 characters.
+                            Username length must be between 3 and 20 characters.
                         </small>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                    <label for="email" class="col-sm-2 col-form-label" style="color: #7b6f00">Email</label>
                     <div class="col-sm-10">
                         <input th:field="*{email}" th:errorclass="is-invalid" type="text" class="form-control" id="email"
                                aria-describedby="emailHelpInline" placeholder="email@example.com">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="password" class="col-sm-2 col-form-label">Password</label>
+                    <label for="password" class="col-sm-2 col-form-label" style="color: #7b6f00">Password</label>
                     <div class="col-sm-10">
                         <input th:field="*{password}" th:errorclass="is-invalid" type="password" class="form-control" id="password"
                                aria-describedby="passwordHelpInline" placeholder="Password">
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="confirmPassword" class="col-sm-2 col-form-label">Confirm Password</label>
+                    <label for="confirmPassword" class="col-sm-2 col-form-label" style="color: #7b6f00">Confirm Password</label>
                     <div class="col-sm-10">
                         <input th:field="*{confirmPassword}" th:errorclass="is-invalid" type="password" class="form-control" id="confirmPassword"
                                aria-describedby="confirmPasswordHelpInline" placeholder="Confirm Password">
@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="created" class="col-sm-2 col-form-label">Created date</label>
+                    <label for="created" class="col-sm-2 col-form-label" style="color: #7b6f00">Created date</label>
                     <div class="col-sm-10">
                         <input th:field="*{born}" th:errorclass="is-invalid" type="date" class="form-control" id="created"
                                aria-describedby="createdHelpInline">
@@ -82,7 +82,7 @@
                 </div>
                 <div>
                     <div class="form-group">
-                        <label for="gender">Level</label>
+                        <label for="gender" style="color: #7b6f00">Level</label>
                         <select th:field="*{gender}"
                                 th:errorclass="'is-invalid bg-danger'" id="gender" class="custom-select">
                             <option value="" selected>Select gender</option>
@@ -90,7 +90,7 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-info w-50">Register</button>
+                <button type="submit" class="btn btn-info w-50" id="bb">Register</button>
             </form>
             <hr class="bg-light">
             <div class="homelogin">

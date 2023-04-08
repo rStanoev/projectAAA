@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css">
-    <link rel="stylesheet" href="/css/listUsers/style.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="/css/listOfUsers/style.css">
+    <title>User List</title>
 </head>
 <body>
 <header>
@@ -27,8 +27,8 @@
         <tr>
             <td th:text="*{username}">David</td>
             <td th:text="*{email}">Male</td>
-            <td><a th:href="@{/users/profile2/{name}(name=*{username})}"><i class="fa-solid fa-eye"></i></a></td>
-            <td><a th:href="@{/users/change/{name}(name=*{username})}"><i class="fa-solid fa-pen"></i></a></td>
+            <td><a th:href="@{/users/profile2/{name}(name=*{username})}" id="cha"><i class="fa-solid fa-eye"></i></a></td>
+            <td><a th:href="@{/users/change/{name}(name=*{username})}" id="cha1"><i class="fa-solid fa-pen"></i></a></td>
         </tr>
         </tbody>
     </table>

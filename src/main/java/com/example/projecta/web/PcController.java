@@ -3,7 +3,9 @@ package com.example.projecta.web;
 import com.example.projecta.domain.dto.binding.CommentsBindingModel;
 import com.example.projecta.domain.dto.entity.*;
 import com.example.projecta.domain.dto.model.PcModel;
+import com.example.projecta.domain.dto.model.ProductNotFoundException;
 import com.example.projecta.domain.dto.model.ScListModel;
+import com.example.projecta.domain.dto.model.UserNotFoundException;
 import com.example.projecta.helper.idKeaper;
 import com.example.projecta.repository.UserRepository;
 import com.example.projecta.service.CommentsPCService;
@@ -86,6 +88,10 @@ public class PcController {
     public String getPc(@PathVariable("id") Long id, Model model) {
         PcModel pc = pcPService.getById(id);
 
+        if (pc == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         model.addAttribute("pc", pc);
 
         idKeaper.setId(id);
@@ -103,19 +109,37 @@ public class PcController {
     public String getP(@PathVariable("id") Long id , Model model, Principal principal) {
         PcP pcP = pcPService.getById2(id, principal);
 
+        if (pcP == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         User user = userRepository.findByEmail(principal.getName()).orElseThrow(null);
+
+        if (user == null) {
+            throw new UserNotFoundException(principal.getName());
+        }
 
         model.addAttribute("cartLISTTPC", user.getPcs());
 
-        return "shoppingCart";
+        return "redirect:/";
 
     }
 
     @GetMapping("/remove/{id}")
     public String removeP(@PathVariable("id") Long id , Model model, Principal principal) {
         PcP pcP = pcPService.getById3(id);
+
+        if (pcP == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         String username = principal.getName();
         User user = userService.getUser(username);
+
+        if (user == null) {
+            throw new UserNotFoundException(username);
+        }
+
         pcPModelList = user.getPcs();
 
         this.userService.removePC(pcP, user, pcPModelList);
@@ -128,9 +152,21 @@ public class PcController {
 
     @GetMapping("/buy/{id}")
     public String buyP(@PathVariable("id") Long id , Model model, Principal principal) {
-        PcP pcP = pcPService.getById3(id);
         String username = principal.getName();
+        PcP pcP = pcPService.getById3(id);
+
+        if (pcP == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         User user = userService.getUser(username);
+
+        if (user == null) {
+            throw new UserNotFoundException(username);
+        }
+
+
+
         pcPModelList = user.getPcs();
 
         this.userService.buyPC(pcP, user, pcPModelList);
@@ -155,11 +191,15 @@ public class PcController {
             redirectAttributes.addFlashAttribute("commentsBindingModel", commentsBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.commentsBindingModel", bindingResult);
 
-            return "/Pc/detailsPC";
+            return "redirect:/";
         }
         Long id = idKeaper.getId();
 
         PcModel pc = pcPService.getById(id);
+
+        if (pc == null) {
+            throw new ProductNotFoundException(id);
+        }
 
         model.addAttribute("pc", pc);
 

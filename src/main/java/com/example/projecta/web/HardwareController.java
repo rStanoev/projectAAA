@@ -6,7 +6,9 @@ import com.example.projecta.domain.dto.entity.HardwareP;
 import com.example.projecta.domain.dto.entity.PcP;
 import com.example.projecta.domain.dto.entity.User;
 import com.example.projecta.domain.dto.model.HardwareModel;
+import com.example.projecta.domain.dto.model.ProductNotFoundException;
 import com.example.projecta.domain.dto.model.ScListModel;
+import com.example.projecta.domain.dto.model.UserNotFoundException;
 import com.example.projecta.helper.idKeaper;
 import com.example.projecta.repository.UserRepository;
 import com.example.projecta.service.CommentsHCService;
@@ -131,6 +133,10 @@ public class HardwareController {
     public String getHardware(@PathVariable("id") Long id, Model model) {
         HardwareModel hardware = hardwarePService.getById(id);
 
+        if (hardware == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         model.addAttribute("hardware", hardware);
 
         idKeaper.setId(id);
@@ -148,19 +154,37 @@ public class HardwareController {
     public String getP(@PathVariable("id") Long id , Model model, Principal principal) {
         HardwareP hardwareP = hardwarePService.getById2(id, principal);
 
+        if (hardwareP == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         User user = userRepository.findByEmail(principal.getName()).orElseThrow(null);
+
+        if (user == null) {
+            throw new  UserNotFoundException(principal.getName());
+        }
 
         model.addAttribute("cartLISTTHC", user.getHardware());
 
-        return "shoppingCart";
+        return "redirect:/";
 
     }
 
     @GetMapping("/remove/{id}")
     public String removeP(@PathVariable("id") Long id , Model model, Principal principal) {
         HardwareP hardwareP = hardwarePService.getById3(id);
+
+        if (hardwareP == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         String username = principal.getName();
         User user = userService.getUser(username);
+
+        if (user == null) {
+            throw new UserNotFoundException(username);
+        }
+
         hardwareModelList = user.getHardware();
 
         this.userService.removeHC(hardwareP, user, hardwareModelList);
@@ -173,9 +197,21 @@ public class HardwareController {
 
     @GetMapping("/buy/{id}")
     public String buyP(@PathVariable("id") Long id , Model model, Principal principal) {
-        HardwareP hardwareP = hardwarePService.getById3(id);
         String username = principal.getName();
+        HardwareP hardwareP = hardwarePService.getById3(id);
+
+        if (hardwareP == null) {
+            throw new ProductNotFoundException(id);
+        }
+
         User user = userService.getUser(username);
+
+        if (user == null) {
+            throw new  UserNotFoundException(username);
+        }
+
+
+
         hardwareModelList = user.getHardware();
 
         this.userService.buyHC(hardwareP, user, hardwareModelList);
@@ -201,12 +237,16 @@ public class HardwareController {
             redirectAttributes.addFlashAttribute("commentsBindingModel", commentsBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.commentsBindingModel", bindingResult);
 
-            return "/Hardware/detailsHC";
+            return "redirect:/";
         }
 
         Long id = idKeaper.getId();
 
         HardwareModel hardware = hardwarePService.getById(id);
+
+        if (hardware == null) {
+            throw new ProductNotFoundException(id);
+        }
 
         model.addAttribute("hardware", hardware);
 
@@ -218,4 +258,6 @@ public class HardwareController {
 
         return "/Hardware/detailsHC";
     }
+
+
 }

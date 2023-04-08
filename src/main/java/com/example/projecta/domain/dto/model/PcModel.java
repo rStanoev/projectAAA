@@ -15,6 +15,8 @@ public class PcModel {
 
     private Double price;
 
+    private String description;
+
 
     private Pc pc;
 
@@ -51,5 +53,13 @@ public class PcModel {
 
     public void setPc(Pc pc) {
         this.pc = pc;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

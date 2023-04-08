@@ -14,7 +14,7 @@ html {
 }
 
 body {
-    background-image: url("/images/site-bgr.jpg");
+    background-image: linear-gradient(to right, rgba(28, 159, 235, 0.925) , rgb(255, 255, 255));
     backdrop-filter: blur(4px);
     padding: 10px;
     background-repeat: no-repeat;

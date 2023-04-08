@@ -13,6 +13,7 @@ import com.example.projecta.repository.UserRepository;
 import com.example.projecta.service.PeripheralBoughtService;
 import com.example.projecta.service.PeripheralPService;
 import com.example.projecta.service.PeripheralService;
+import com.example.projecta.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,15 +29,18 @@ public class PeripheralPServiceImpl implements PeripheralPService {
     private final PeripheralService peripheralService;
     private final ModelMapper modelMapper;
 
+    private final UserService userService;
+
     private final UserRepository userRepository;
 
     private final PeripheralBoughtService peripheralBoughtService;
 
     @Autowired
-    public PeripheralPServiceImpl(PeripheralPRepository peripheralPRepository, PeripheralService peripheralService, ModelMapper modelMapper, UserRepository userRepository, PeripheralBoughtService peripheralBoughtService) {
+    public PeripheralPServiceImpl(PeripheralPRepository peripheralPRepository, PeripheralService peripheralService, ModelMapper modelMapper, UserService userService, UserRepository userRepository, PeripheralBoughtService peripheralBoughtService) {
         this.peripheralPRepository = peripheralPRepository;
         this.peripheralService = peripheralService;
         this.modelMapper = modelMapper;
+        this.userService = userService;
         this.userRepository = userRepository;
         this.peripheralBoughtService = peripheralBoughtService;
     }
@@ -167,6 +171,17 @@ public class PeripheralPServiceImpl implements PeripheralPService {
     }
         return peripheralPList;
     }
+
+    @Override
+    public Double getSumOfAllElements(Set<PeripheralP> peripheral) {
+        Double totalSum = 0.0;
+
+        for (PeripheralP p : peripheral) {
+            totalSum += p.getPrice();
+        }
+        return totalSum;
+    }
+
 
 
     private List<PeripheralP> getAllProduct() {

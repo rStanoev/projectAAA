@@ -38,4 +38,8 @@ public interface TandCPService {
     List<TandCP> getLowestPrice();
 
     List<TandCP> showTC();
+
+    Double getSumOfAllElements(Set<TandCP> tandCP);
+
+
 }

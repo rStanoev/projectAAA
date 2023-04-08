@@ -1,0 +1,30 @@
+body {
+    background-image: linear-gradient(to right, rgba(28, 159, 235, 0.925) , rgb(255, 255, 255));
+}
+
+#core {
+    border: 3px solid #ecc649;
+    background-color: #f9f0d2;
+    color: #7b6f00;
+}
+
+#core1 {
+    border: 3px solid #ecc649;
+    background-color: #f9f0d2;
+    color: #7b6f00;
+}
+
+.pp {
+    color: #7b6f00;
+}
+
+#but, #but1, #but2, #but3, #but4, #but5, #but6, #but7, #but8, #but9 {
+    border: 2px solid #7b6f00;
+    background-color: #ecc649;
+    color: #f9f0d2;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}

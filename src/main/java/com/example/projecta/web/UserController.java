@@ -4,12 +4,15 @@ import com.example.projecta.domain.dto.binding.MessagesBindingModel;
 import com.example.projecta.domain.dto.binding.UserRegisterBindingModel;
 import com.example.projecta.domain.dto.entity.Messages;
 import com.example.projecta.domain.dto.entity.User;
+import com.example.projecta.domain.dto.model.UserNotFoundException;
 import com.example.projecta.domain.dto.view.UserViewModel;
+import com.example.projecta.helper.Winner;
 import com.example.projecta.repository.GenderRepository;
 import com.example.projecta.repository.UserRepository;
 import com.example.projecta.service.MessagesService;
 import com.example.projecta.service.UserService;
 
+import org.hibernate.annotations.Parameter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +36,7 @@ public class UserController {
     private final GenderRepository genderRepository;
     private final UserRepository userRepository;
     private final MessagesService messagesService;
+
 
 
     @Autowired
@@ -61,8 +65,9 @@ public class UserController {
     public String postRegister(@Valid UserRegisterBindingModel userRegisterBindingModel,
                                BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
+        boolean isExisting = userService.findUserByUserNameOrEmail(userRegisterBindingModel.getUsername(), userRegisterBindingModel.getEmail());
 
-        if (bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
+        if (bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword()) || isExisting) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
 
@@ -79,6 +84,10 @@ public class UserController {
     private String profile(Principal principal, Model model) {
         String username = principal.getName();
         User user = userService.getUser(username);
+
+        if (user == null) {
+            throw new UserNotFoundException(username);
+        }
 
         UserViewModel userViewModel = modelMapper.map(user, UserViewModel.class);
 
@@ -99,6 +108,10 @@ public class UserController {
     private String profile2(@PathVariable("name") String name, Model model) {
         User user = userService.getUser2(name);
 
+        if (user == null) {
+            throw new UserNotFoundException(name);
+        }
+
         UserViewModel userViewModel = modelMapper.map(user, UserViewModel.class);
 
         model.addAttribute("user", userViewModel);
@@ -108,6 +121,11 @@ public class UserController {
     @GetMapping("/change/{name}")
     private String change(@PathVariable("name") String name) {
         User user = userService.getUser2(name);
+
+        if (user == null) {
+            throw new UserNotFoundException(name);
+        }
+
         userService.changeRole(user);
 
 
@@ -115,9 +133,13 @@ public class UserController {
     }
 
     @GetMapping("/show/allUsers")
-    private String showAllUsers(Principal principal, Model model) {
+    public String showAllUsers(Principal principal, Model model) {
         String username = principal.getName();
         User user = userService.getUser(username);
+
+        if (user == null) {
+            throw new UserNotFoundException(username);
+        }
 
         model.addAttribute("userList", userService.findAllUsersExceptLoggedOne(user));
 
@@ -129,7 +151,13 @@ public class UserController {
     private String showMessages(@PathVariable("name") String name, Principal principal, Model model) {
         String username = principal.getName();
         User user = userService.getUser(username);
+
+        if (user == null) {
+            throw new UserNotFoundException(username);
+        }
+
         User user1 = userService.getUser2(name);
+
 
         List<Messages> m = userService.getConversation(user, user1);
 
@@ -149,16 +177,24 @@ public class UserController {
     public String addMessages(@Valid MessagesBindingModel messagesBindingModel, BindingResult bindingResult,
                               RedirectAttributes redirectAttributes, Principal principal, @PathVariable("id") Long id, Model model) throws IOException {
 
+        String username = principal.getName();
+        User user = userService.getUser(username);
+        User user1 = userService.getById3(id);
+
+        if (user == null) {
+            throw new UserNotFoundException(username);
+        }
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("messagesBindingModel", messagesBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.messagesBindingModel", bindingResult);
 
-            return "listOfAllUsers";
+
+            String name = user1.getUsername();
+
+            return "redirect:/";
+
         }
-        String username = principal.getName();
-        User user = userService.getUser(username);
-        User user1 = userService.getById3(id);
 
 
         messagesService.addMessage(messagesBindingModel, id, user);
@@ -171,5 +207,17 @@ public class UserController {
 
         return "Messages";
     }
+
+    @GetMapping("/rankList")
+    public String rank(Model model) {
+        List<User> users = userService.findAllUsersDesc();
+
+        model.addAttribute("usersByPoints", users);
+
+
+        return "gameTable";
+    }
+
+
 
 }

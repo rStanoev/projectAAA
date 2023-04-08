@@ -134,6 +134,53 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean findUserByUserNameOrEmail(String username, String email) {
+        boolean isEx = true;
+        User user = userRepository.findByUsername(username).orElse(null);
+        User user1 = userRepository.findByEmail(email).orElse(null);
+
+        if (user == null && user1 == null) {
+            isEx = false;
+        }
+
+        return isEx;
+    }
+
+    @Override
+    public List<User> findAllUsersDesc() {
+        List<User> us = userRepository.findAll();
+        for (User u : us) {
+            int sum = u.getHardwareBought().size() * 15 +
+                    u.getPeripheralsBought().size() * 10 +
+                    u.getPcs().size() * 20 +
+                    u.gettANDcsBought().size() * 5;
+
+            u.setPoints(sum);
+        }
+        userRepository.saveAllAndFlush(us);
+        return userRepository.findAllByOrderByPointsDesc();
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAllByOrderByPointsDesc();
+    }
+
+    @Override
+    public void sANDf(User user) {
+        userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public void sANDf2(List<User> users, int sum) {
+        if (sum > 0) {
+            users.get(0).setWon(users.get(0).getWon() + 1);
+        }
+
+        userRepository.saveAllAndFlush(users);
+    }
+
+    @Override
     public UserViewModel findUser(Long id) {
         User user = userRepository.findById(id).orElse(null);
 

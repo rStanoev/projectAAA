@@ -7,23 +7,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/bootstrap.css">
-  <title>Document</title>
+  <link rel="stylesheet" href="/css/shoppingCart/style.css">
+  <link rel="stylesheet" href="/css/shoppingCart/bootstrap.css">
+  <title>Current Bought Products</title>
 </head>
 <body>
-<section class="vh-100" style="background-color: #c5c5c5;">
+<section class="vh-100">
   <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col">
-        <p><span class="h2">Shopping Cart </span><span class="h4">(1 item in your cart)</span></p>
 
         <div class="card mb-4" >
           <div class="card-body p-4" th:each="c : ${boughtLISTTHC}" th:object="${c}">
 
             <div class="row align-items-center" >
               <div class="col-md-2">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp"
-                     class="img-fluid" alt="Generic placeholder image">
+                <th:block th:if="${c.hardware.id == 1}">
+                  <img src="/images/hardware/A-Rendering-of-a-CPU.webp" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${c.hardware.id == 2}">
+                  <img src="/images/hardware/what-is-a-gpu-770x462.jpg" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${c.hardware.id == 3}">
+                  <img src="/images/hardware/mother_board.jpg" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${c.hardware.id == 4}">
+                  <img src="/images/hardware/img.jpg" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${c.hardware.id == 5}">
+                  <img src="/images/hardware/SSD_480x480.webp" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${c.hardware.id == 6}">
+                  <img src="/images/hardware/Y2083900-01.webp" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${c.hardware.id == 7}">
+                  <img src="/images/hardware/awd-air-mesh-blk.webp" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${c.hardware.id == 8}">
+                  <img src="/images/hardware/20-232-728-V01.jpg" style="max-width: 100%" />
+                </th:block>
               </div>
               <div class="col-md-2 d-flex justify-content-center">
                 <div>
@@ -56,8 +78,27 @@
 
             <div class="row align-items-center" >
               <div class="col-md-2">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp"
-                     class="img-fluid" alt="Generic placeholder image">
+                <th:block th:if="${pe.peripheral.id == 1}">
+                  <img src="/images/peripheral/61ta6aU2AUL.jpg" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${pe.peripheral.id == 2}">
+                  <img src="/images/peripheral/glorious_model_o_wired_full_size_black_matte_6.webp" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${pe.peripheral.id == 3}">
+                  <img src="/images/peripheral/981000818.png" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${pe.peripheral.id == 4}">
+                  <img src="/images/peripheral/01_xl2746k-front.webp" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${pe.peripheral.id == 5}">
+                  <img src="/images/peripheral/GameStop-Bluetooth-Gaming-Speakers-with-RGB-LED-Lighting.jpg" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${pe.peripheral.id == 6}">
+                  <img src="/images/peripheral/dualsense-edge-listing-thumb-01-en-23aug22.webp" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${pe.peripheral.id == 7}">
+                  <img src="/images/peripheral/computer-peripherals-1217771.jpg" style="max-width: 100%" />
+                </th:block>
               </div>
               <div class="col-md-2 d-flex justify-content-center">
                 <div>
@@ -90,8 +131,15 @@
 
             <div class="row align-items-center" >
               <div class="col-md-2">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp"
-                     class="img-fluid" alt="Generic placeholder image">
+                <th:block th:if="${pc.pc.id == 1}">
+                  <img src="/images/pc/zoom7962b785bb90ede703730c65a717e989_6.png" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${pc.pc.id == 2}">
+                  <img src="/images/pc/laptop-under-500-2048px-acer-1.jpg" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${pc.pc.id == 3}">
+                  <img src="/images/pc/51eOztNdCkL.jpg" style="max-width: 100%" />
+                </th:block>
               </div>
               <div class="col-md-2 d-flex justify-content-center">
                 <div>
@@ -124,8 +172,12 @@
 
             <div class="row align-items-center" >
               <div class="col-md-2">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp"
-                     class="img-fluid" alt="Generic placeholder image">
+                <th:block th:if="${tc.tandC.id == 1}">
+                  <img src="/images/tandc/marvo_ch_106_v2_red_01_hjWPKz.jpg" style="max-width: 100%" />
+                </th:block>
+                <th:block th:if="${tc.tandC.id == 2}">
+                  <img src="/images/tandc/ARENA-BLACK-Gallery-3-v4-768x768.jpg" style="max-width: 100%" />
+                </th:block>
               </div>
               <div class="col-md-2 d-flex justify-content-center">
                 <div>

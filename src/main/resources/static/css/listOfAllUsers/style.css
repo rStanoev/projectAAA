@@ -1,0 +1,25 @@
+body {
+    background-image: linear-gradient(to right, rgba(28, 159, 235, 0.925) , rgb(255, 255, 255));
+}
+
+.row {
+    justify-content: center;
+}
+
+#ggg{
+    justify-content: center;
+}
+
+#h5E, #h5E1 {
+    color: #7b6f00;
+    font-weight: bold;
+}
+
+#modi {
+    border: 2px solid #ecc649;
+
+}
+
+#lll {
+    background-color: #ecc649;
+}

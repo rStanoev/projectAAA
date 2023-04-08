@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/gameTable/style.css">
+    <title>Game</title>
+</head>
+<body>
+<div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Points</th>
+            <th scope="col">Times Won</th>
+        </tr>
+        </thead>
+        <tbody th:each="u : ${usersByPoints}" th:object="${u}">
+        <tr>
+            <th scope="row"></th>
+            <td th:text="*{username}">Mark</td>
+            <td th:text="*{gender.type}">Otto</td>
+            <td th:text="*{points}">@mdo</td>
+            <td th:text="*{won}">@mdo</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<footer>
+</footer>
+</body>
+</html>

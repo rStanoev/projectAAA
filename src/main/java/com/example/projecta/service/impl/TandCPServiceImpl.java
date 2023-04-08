@@ -1,10 +1,7 @@
 package com.example.projecta.service.impl;
 
 import com.example.projecta.domain.dto.binding.TandCbindingModel;
-import com.example.projecta.domain.dto.entity.PeripheralP;
-import com.example.projecta.domain.dto.entity.TandCBought;
-import com.example.projecta.domain.dto.entity.TandCP;
-import com.example.projecta.domain.dto.entity.User;
+import com.example.projecta.domain.dto.entity.*;
 import com.example.projecta.domain.dto.entity.enums.ChairAndTableEnum;
 import com.example.projecta.domain.dto.model.TCModel;
 import com.example.projecta.domain.dto.model.TandCPListModel;
@@ -13,6 +10,7 @@ import com.example.projecta.repository.UserRepository;
 import com.example.projecta.service.TandCBoughtService;
 import com.example.projecta.service.TandCPService;
 import com.example.projecta.service.TandCService;
+import com.example.projecta.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,17 +26,20 @@ public class TandCPServiceImpl implements TandCPService {
     private final TandCService tandCService;
     private final ModelMapper modelMapper;
 
+    private final UserService userService;
+
     private final UserRepository userRepository;
 
     private final TandCBoughtService tandCBoughtService;
 
 
     @Autowired
-    public TandCPServiceImpl(TandCPRepository tandCPRepository, TandCService tandCService, ModelMapper modelMapper, UserRepository userRepository, TandCBoughtService tandCBoughtService) {
+    public TandCPServiceImpl(TandCPRepository tandCPRepository, TandCService tandCService, ModelMapper modelMapper, UserService userService, UserRepository userRepository, TandCBoughtService tandCBoughtService) {
         this.tandCPRepository = tandCPRepository;
         this.tandCService = tandCService;
 
         this.modelMapper = modelMapper;
+        this.userService = userService;
         this.userRepository = userRepository;
         this.tandCBoughtService = tandCBoughtService;
     }
@@ -162,6 +163,19 @@ public class TandCPServiceImpl implements TandCPService {
     }
         return tandCPList;
     }
+
+    @Override
+    public Double getSumOfAllElements(Set<TandCP> tandCP) {
+
+        Double totalSum = 0.0;
+
+        for (TandCP t : tandCP) {
+            totalSum += t.getPrice();
+        }
+        return totalSum;
+    }
+
+
 
 
     private List<TandCP> getAllTandC() {

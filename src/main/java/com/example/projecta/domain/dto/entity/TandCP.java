@@ -11,11 +11,14 @@ public class TandCP {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
     private Double price;
+
+    @Column
+    private String description;
 
     @ManyToOne
     private TandC tandC;
@@ -65,5 +68,13 @@ public class TandCP {
 
     public void setCommentsTCSet(Set<CommentsTC> commentsTCSet) {
         this.commentsTCSet = commentsTCSet;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

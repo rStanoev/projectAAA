@@ -15,6 +15,8 @@ public class HardwareModel {
 
     private Double price;
 
+    private String description;
+
 
     private Hardware hardware;
 
@@ -51,5 +53,13 @@ public class HardwareModel {
 
     public void setHardware(Hardware hardware) {
         this.hardware = hardware;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

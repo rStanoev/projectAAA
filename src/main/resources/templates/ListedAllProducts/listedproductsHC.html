@@ -6,10 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <title>Document</title>
+  <link rel="stylesheet" href="/css/listedProducts.css">
+  <title>Hardwares</title>
 </head>
 <body>
-<section style="background-color: #eee;">
+<section>
   <div class="text-center container py-5">
     <h4 class="mt-4 mb-5"><strong>Bestsellers</strong></h4>
 
@@ -18,8 +19,30 @@
         <div class="card" th:each="h : ${listHC.all}" th:object="${h}">
           <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
                data-mdb-ripple-color="light">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/belt.webp"
-                 class="w-100" />
+            <th:block th:if="${h.hardware.id == 1}">
+              <img src="/images/hardware/A-Rendering-of-a-CPU.webp" />
+            </th:block>
+            <th:block th:if="${h.hardware.id == 2}">
+              <img src="/images/hardware/what-is-a-gpu-770x462.jpg" />
+            </th:block>
+            <th:block th:if="${h.hardware.id == 3}">
+              <img src="/images/hardware/mother_board.jpg" />
+            </th:block>
+            <th:block th:if="${h.hardware.id == 4}">
+              <img src="/images/hardware/img.jpg" />
+            </th:block>
+            <th:block th:if="${h.hardware.id == 5}">
+              <img src="/images/hardware/SSD_480x480.webp" />
+            </th:block>
+            <th:block th:if="${h.hardware.id == 6}">
+              <img src="/images/hardware/Y2083900-01.webp" />
+            </th:block>
+            <th:block th:if="${h.hardware.id == 7}">
+              <img src="/images/hardware/awd-air-mesh-blk.webp" />
+            </th:block>
+            <th:block th:if="${h.hardware.id == 8}">
+              <img src="/images/hardware/20-232-728-V01.jpg" />
+            </th:block>
             <a href="#!">
               <div class="hover-overlay">
                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>

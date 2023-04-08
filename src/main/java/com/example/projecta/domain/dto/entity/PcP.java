@@ -12,11 +12,14 @@ public class PcP {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
     private Double price;
+
+    @Column
+    private String description;
 
     @ManyToOne
     private Pc pc;
@@ -65,5 +68,13 @@ public class PcP {
 
     public void setCommentsPCSet(Set<CommentsPC> commentsPCSet) {
         this.commentsPCSet = commentsPCSet;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

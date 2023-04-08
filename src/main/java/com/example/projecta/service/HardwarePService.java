@@ -35,4 +35,8 @@ public interface HardwarePService {
     List<HardwareP> getLowestPrice();
 
     List<HardwareP> showHC();
+
+    Double getSumOfAllElements(Set<HardwareP> hardware);
+
+
 }

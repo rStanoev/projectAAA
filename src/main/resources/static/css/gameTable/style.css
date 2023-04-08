@@ -1,0 +1,17 @@
+body {
+    background-image: linear-gradient(to right, rgba(28, 159, 235, 0.925) , rgb(255, 255, 255));
+}
+
+div {
+    background-color: #f9f0d2;
+    border: 2px solid #ecc649;
+}
+
+footer {
+    background-color: #f9f0d2;
+}
+
+h1 {
+    font-weight: bold;
+    color: goldenrod;
+}

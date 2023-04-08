@@ -28,6 +28,12 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column
+    private int points;
+
+    @Column
+    private int won;
+
     @Column(nullable = false)
     @DateTimeFormat()
     private LocalDate born;
@@ -220,5 +226,21 @@ public class User {
 
     public void setMessages(Set<Messages> messages) {
         this.messages = messages;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public int getWon() {
+        return won;
+    }
+
+    public void setWon(int won) {
+        this.won = won;
     }
 }
